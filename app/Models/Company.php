@@ -21,6 +21,7 @@ class Company extends Model
         'id',
         'name',
         'email',
-        'address'
+        'address',
+        'status'
     ];
 }
