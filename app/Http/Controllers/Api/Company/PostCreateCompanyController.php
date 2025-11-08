@@ -17,7 +17,12 @@ class PostCreateCompanyController extends Controller
     {
         DB::beginTransaction();
         try {
-            $company = $service->handle(Str::uuid(), $request->name);
+            $company = $service->handle(
+                Str::uuid(), 
+                $request->name,
+                $request->email,
+                $request->address
+            );
             DB::commit();
             return response($company, 201);
         } catch (\Throwable $error) {

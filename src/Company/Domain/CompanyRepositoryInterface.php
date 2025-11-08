@@ -16,4 +16,9 @@ interface CompanyRepositoryInterface
      * Update status company method
      */
     public function updateStatus(CompanyId $id, CompanyStatus $status): void;
+
+    /**
+     * List companies
+     */
+    public function all(): array;
 }

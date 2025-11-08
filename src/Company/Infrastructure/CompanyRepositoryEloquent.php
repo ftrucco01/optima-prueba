@@ -18,7 +18,9 @@ class CompanyRepositoryEloquent implements CompanyRepositoryInterface
         EloquentCompany::Create([
             'id'     => $company->id(),
             'name'   => $company->name(),
-            'status' => $company->status(),
+            'status' => $company->status()->name(),
+            'address' => $company->address(),
+            'email' => $company->email()
         ]);
     }
 
@@ -27,5 +29,10 @@ class CompanyRepositoryEloquent implements CompanyRepositoryInterface
         $company = EloquentCompany::findOrFail($id->get());
         $company->status = $status->name();
         $company->save();
+    }
+
+    public function all(): array
+    {
+        return EloquentCompany::all()->toArray();
     }
 }

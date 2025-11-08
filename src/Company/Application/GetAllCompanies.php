@@ -3,10 +3,9 @@
 namespace OptimaCultura\Company\Application;
 
 use OptimaCultura\Company\Domain\CompanyRepositoryInterface;
-use OptimaCultura\Company\Domain\ValueObject\CompanyId;
-use OptimaCultura\Company\Domain\ValueObject\CompanyStatus;
+use OptimaCultura\Shared\Domain\Interfaces\ServiceInterface;
 
-class UpdateCompanyStatus
+class GetAllCompanies implements ServiceInterface
 {
     private CompanyRepositoryInterface $repository;
 
@@ -15,8 +14,11 @@ class UpdateCompanyStatus
         $this->repository = $repository;
     }
 
-    public function handle(CompanyId $id, CompanyStatus $newStatus): void
+    /**
+     * @return array
+     */
+    public function handle(): array
     {
-        $this->repository->updateStatus($id, $newStatus);
+        return $this->repository->all();
     }
 }
