@@ -209,3 +209,84 @@ Se registró el nuevo endpoint en `routes/api.php`:
 ```php
 Route::put('/company/{id}/status', [UpdateCompanyStatusController::class, '__invoke']);
 ```
+
+---
+
+## Listado de todas las compañías
+
+### Requisito
+
+> Crear un nuevo caso de uso que liste todas las compañías.  
+> Crear un nuevo endpoint de API que liste las compañías basado en el caso de uso del punto anterior.
+
+---
+
+### Cambios realizados
+
+#### 1. Caso de uso
+
+Se creó la clase `OptimaCultura\Company\Application\GetAllCompanies`:
+
+```php
+class GetAllCompanies
+{
+    private CompanyRepositoryInterface $repository;
+
+    public function __construct(CompanyRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function handle(): array
+    {
+        return $this->repository->all();
+    }
+}
+```
+
+---
+
+#### 2. Interfaz de repositorio
+
+Se agregó la siguiente firma al contrato `CompanyRepositoryInterface`:
+
+```php
+public function all(): array;
+```
+
+---
+
+#### 3. Implementación en infraestructura
+
+El método `all()` fue implementado en `CompanyRepositoryEloquent`:
+
+```php
+public function all(): array
+{
+    return EloquentCompany::all()->toArray();
+}
+```
+
+---
+
+#### 4. Controlador
+
+Se agregó el controlador `App\Http\Controllers\Api\Company\GetAllCompaniesController`:
+
+```php
+public function __invoke(): JsonResponse
+{
+    $companies = ($this->service)();
+    return response()->json($companies);
+}
+```
+
+---
+
+#### 5. Ruta
+
+Se registró el endpoint en `routes/api.php`:
+
+```php
+Route::get('/companies', [GetAllCompaniesController::class, '__invoke']);
+```
