@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use OptimaCultura\Company\Application\UpdateCompanyStatus;
 use OptimaCultura\Company\Domain\ValueObject\CompanyId;
 use OptimaCultura\Company\Domain\ValueObject\CompanyStatus;
+use App\Http\Requests\Company\UpdateCompanyStatusRequest;
 
 class UpdateCompanyStatusController extends Controller
 {
@@ -17,14 +17,10 @@ class UpdateCompanyStatusController extends Controller
         $this->updater = $updater;
     }
 
-    public function __invoke(string $id, Request $request)
+    public function __invoke(string $id, UpdateCompanyStatusRequest $request)
     {
-        $request->validate([
-            'status' => 'required|string|in:active,inactive'
-        ]);
-
         $companyId = new CompanyId($id);
-        $status = CompanyStatus::fromName($request->input('status'));
+        $status = CompanyStatus::fromName($request->status);
 
         $this->updater->handle($companyId, $status);
 

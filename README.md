@@ -94,3 +94,118 @@ $request->validate([
     'address' => 'required|string',
 ]);
 ```
+
+---
+
+## Actualización del estado de una compañía
+
+### Requisito
+
+> Crear un nuevo caso de uso para actualizar el estado de una compañía de `inactive` a `active`.  
+> Crear un nuevo endpoint de API que actualice el estado utilizando el caso de uso anterior.
+
+---
+
+### Cambios realizados
+
+#### 1. Caso de uso
+
+Se agregó la clase `OptimaCultura\Company\Application\UpdateCompanyStatus`:
+
+```php
+class UpdateCompanyStatus
+{
+    private CompanyRepositoryInterface $repository;
+
+    public function __construct(CompanyRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function handle(CompanyId $id, CompanyStatus $newStatus): void
+    {
+        $this->repository->updateStatus($id, $newStatus);
+    }
+}
+```
+
+---
+
+#### 2. Modificación del Dominio
+
+- Se agregó el método `updateStatus` a la interfaz `CompanyRepositoryInterface`.
+
+```php
+public function updateStatus(CompanyId $id, CompanyStatus $status): void;
+```
+
+---
+
+#### 3. Implementación en Infraestructura
+
+El método `updateStatus` fue implementado en `CompanyRepositoryEloquent`:
+
+```php
+public function updateStatus(CompanyId $id, CompanyStatus $status): void
+{
+    $company = EloquentCompany::findOrFail($id->get());
+    $company->status = $status->name();
+    $company->save();
+}
+```
+
+---
+
+#### 4. Modelo de Dominio
+
+Se actualizó la entidad `Company` para exponer un método que permita modificar su estado internamente si fuera necesario:
+
+```php
+public function changeStatus(CompanyStatus $status): void
+{
+    $this->status = $status;
+}
+```
+
+---
+
+#### 5. Form Request
+
+Se agregó `App\Http\Requests\Company\UpdateCompanyStatusRequest` para validar los datos de entrada:
+
+```php
+public function rules(): array
+{
+    return [
+        'status' => 'required|string|in:active,inactive',
+    ];
+}
+```
+
+---
+
+#### 6. Controlador
+
+Se creó el controlador `UpdateCompanyStatusController`:
+
+```php
+public function __invoke(UpdateCompanyStatusRequest $request, string $id): JsonResponse
+{
+    ($this->service)(
+        new CompanyId($id),
+        CompanyStatus::fromName($request->input('status'))
+    );
+
+    return response()->json(['message' => 'Company status updated']);
+}
+```
+
+---
+
+#### 7. Ruta
+
+Se registró el nuevo endpoint en `routes/api.php`:
+
+```php
+Route::put('/company/{id}/status', [UpdateCompanyStatusController::class, '__invoke']);
+```
