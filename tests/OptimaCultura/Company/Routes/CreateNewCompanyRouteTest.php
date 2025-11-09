@@ -22,6 +22,8 @@ class CreateNewCompanyRouteTest extends TestCase
         $testCompany = [
             'name'   => $faker->name,
             'status' => 'inactive',
+            'email'   => $faker->email,
+            'address' => $faker->address
         ];
 
         /**
@@ -29,6 +31,8 @@ class CreateNewCompanyRouteTest extends TestCase
          */
         $response = $this->json('POST', '/api/company', [
             'name' => $testCompany['name'],
+            'email' => $testCompany['email'],
+            'address' => $testCompany['address']
         ]);
 
         /**

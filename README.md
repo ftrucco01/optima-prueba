@@ -119,7 +119,29 @@ $company = $creator->handle(
     $testCompany['email'],
     $testCompany['address']
 );
+```
 
+**Archivo:**  
+`tests/OptimaCultura\Company\Routes\CreateNewCompanyRouteTest.php`
+
+Se actualizó el payload para incluir los nuevos campos requeridos (`email`, `address`):
+
+```php
+$faker = \Faker\Factory::create();
+
+$testCompany = [
+    'name'    => $faker->name,
+    'status'  => 'inactive',
+    'email'   => $faker->email,
+    'address' => $faker->address
+];
+
+$response = $this->postJson('/api/company', [
+    'name'    => $testCompany['name'],
+    'email'   => $testCompany['email'],
+    'address' => $testCompany['address'],
+]);
+```
 ---
 
 ## Actualización del estado de una compañía
