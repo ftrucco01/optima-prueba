@@ -1,4 +1,4 @@
-# Documentación Técnica — Examen Óptima Cultura
+# Examen Óptima Cultura
 
 Este repositorio contiene la resolución progresiva del examen técnico propuesto por la empresa Óptima Cultura.  
 La solución se desarrolló utilizando **arquitectura hexagonal**, priorizando la separación de responsabilidades y el diseño orientado al dominio.
@@ -94,6 +94,31 @@ $request->validate([
     'address' => 'required|string',
 ]);
 ```
+
+
+#### 6. Test de Aplicación
+
+**Archivo:**  
+`tests/OptimaCultura/Company/Application/CreateANewCompanyTest.php`
+
+Se ajustó el test para reflejar los nuevos campos `email` y `address`, así como el orden correcto de los parámetros esperados por el caso de uso `CompanyCreator`.
+
+```php
+$testCompany = [
+    'id'      => Str::uuid(),
+    'name'    => $faker->name,
+    'status'  => 'inactive',
+    'email'   => $faker->email,
+    'address' => $faker->address
+];
+
+$creator = new CompanyCreator(new CompanyRepositoryFake());
+$company = $creator->handle(
+    $testCompany['id'],
+    $testCompany['name'],
+    $testCompany['email'],
+    $testCompany['address']
+);
 
 ---
 

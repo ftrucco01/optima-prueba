@@ -24,9 +24,11 @@ final class CreateANewCompanyTest extends TestCase
          */
         $faker = \Faker\Factory::create();
         $testCompany = [
-            'id'     => Str::uuid(),
-            'name'   => $faker->name,
-            'status' => 'inactive',
+            'id'      => Str::uuid(),
+            'name'    => $faker->name,
+            'status'  => 'inactive',
+            'email'   => $faker->email,
+            'address' => $faker->address
         ];
 
         /**
@@ -35,7 +37,9 @@ final class CreateANewCompanyTest extends TestCase
         $creator = new CompanyCreator(new CompanyRepositoryFake());
         $company = $creator->handle(
             $testCompany['id'],
-            $testCompany['name']
+            $testCompany['name'],
+            $testCompany['email'],
+            $testCompany['address']
         );
 
         /**
