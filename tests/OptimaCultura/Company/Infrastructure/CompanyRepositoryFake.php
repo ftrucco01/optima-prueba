@@ -10,6 +10,7 @@ use OptimaCultura\Company\Domain\ValueObject\CompanyStatus;
 class CompanyRepositoryFake implements CompanyRepositoryInterface
 {
     public bool $callMethodCreate = false;
+    public bool $callMethodUpdateStatus = false;
 
     /**
      * @inheritdoc
@@ -21,7 +22,7 @@ class CompanyRepositoryFake implements CompanyRepositoryInterface
 
     public function updateStatus(CompanyId $id, CompanyStatus $status): void
     {
-        
+        $this->callMethodUpdateStatus = true;
     }
 
     public function all(): array

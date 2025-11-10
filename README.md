@@ -257,8 +257,19 @@ Se registró el nuevo endpoint en `routes/api.php`:
 Route::put('/company/{id}/status', [UpdateCompanyStatusController::class, '__invoke']);
 ```
 
----
+#### 8. Test de actualización del estado de una compañía
 
+**Archivo:**  
+`tests/OptimaCultura/Company/Application/UpdateCompanyStatusTest.php`
+
+Se creó un test unitario para validar el comportamiento del caso de uso `UpdateCompanyStatus`.
+
+#### Objetivo
+Verificar que el servicio:
+- Invoque correctamente el método `updateStatus()` del repositorio.
+- Mantenga la coherencia del nuevo estado (`active`) mediante el objeto de valor `CompanyStatus`.
+
+---
 ## Listado de todas las compañías
 
 ### Requisito
