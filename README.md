@@ -5,7 +5,8 @@ La solución se desarrolló utilizando **arquitectura hexagonal**, priorizando l
 
 > Enunciado original del ejercicio: [gitlab.com/optima-cultura/prueba-backend-09-2025](https://gitlab.com/optima-cultura/prueba-backend-09-2025)
 
-
+**Autor:** Francisco Trucco
+**Portfolio:** [www.franciscotrucco.dev](https://www.franciscotrucco.dev)
 ---
 
 ## Actualización del modelo `Company` con `email` y `address`
