@@ -8,10 +8,11 @@ use OptimaCultura\Company\Domain\ValueObject\CompanyId;
 use OptimaCultura\Company\Domain\ValueObject\CompanyStatus;
 use OptimaCultura\Company\Application\UpdateCompanyStatus;
 use Tests\OptimaCultura\Company\Infrastructure\CompanyRepositoryFake;
+use PHPUnit\Framework\Attributes\Test;
 
 final class UpdateCompanyStatusTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function update_company_status_from_inactive_to_active()
     {
         // Arrange

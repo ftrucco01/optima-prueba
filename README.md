@@ -348,3 +348,10 @@ Se registró el endpoint en `routes/api.php`:
 ```php
 Route::get('/companies', [GetAllCompaniesController::class, '__invoke']);
 ```
+
+#### 6. Test del listado de compañías
+
+**Archivo:**  
+`tests/OptimaCultura/Company/Application/GetAllCompaniesTest.php`
+
+Se implementó un test unitario para verificar el correcto funcionamiento del caso de uso `GetAllCompanies`, encargado de recuperar el listado completo de compañías.
