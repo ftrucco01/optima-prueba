@@ -5,7 +5,7 @@ La solución se desarrolló utilizando **arquitectura hexagonal**, priorizando l
 
 > Enunciado original del ejercicio: [gitlab.com/optima-cultura/prueba-backend-09-2025](https://gitlab.com/optima-cultura/prueba-backend-09-2025)
 
-**Autor:** Francisco Trucco
+**Autor:** [Francisco Trucco](https://www.franciscotrucco.dev)  
 **Portfolio:** [www.franciscotrucco.dev](https://www.franciscotrucco.dev)
 ---
 
